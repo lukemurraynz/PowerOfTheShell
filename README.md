@@ -8,6 +8,6 @@ Unless specified otherwise, every script can usually be ran directly from Powers
 ## Meta
 
 Luke Murray [Twitter] – [@lukemurraynz](https://twitter.com/lukemurraynz)
-Luke Murray [Blog]  – (https://luke.geek.nz)
+Luke Murray [Blog]  – (http://luke.geek.nz)
 
 [https://github.com/lukemurraynz/PowerOfTheShell](https://github.com/lukemurraynz/PowerOfTheShell)
