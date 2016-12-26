@@ -1,5 +1,7 @@
-# Power Of The Shell
-> This Repository is for random Knicks and knacks - in relation to PowerShell scripts I have created for one task or another. I am quite happy if you fork any of the projects - or recommend improvements.
+# Power of The Shell
+> This Repository is for random Knicks and knacks - in relation to PowerShell (Windows based) scripts I have created for one task or another.
+
+> I get inspiration and help from the PowerShell community so willing to give back in return, also happy if you fork any of the files - or recommend improvements.
 
 ## Usage example
 
