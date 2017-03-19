@@ -1,4 +1,4 @@
-﻿# Power of The Shell - Other
+﻿## Power of The Shell - Other
 > This Repository is for random scripts I have created for one task or another, that doesn't fully fit in another folder.
 
 > I get inspiration and help from the PowerShell community so willing to give back in return, also happy if you fork any of the files - or recommend improvements.
