@@ -5,7 +5,7 @@
     Version: 0.1
     Version History:
 
-    Purpose: To removed unused App-V packages older than x30 days from a clients App-V package store. Intended to be used as a Configuration Manager baseline.
+    Purpose: To remove unused App-V packages older than x30 days from a clients App-V package store. Intended to be used as a Configuration Manager baseline.
     http://luke.geek.nz/win/rm-unused-app-v-packages-powershell-sccm.
 #>
 

@@ -45,3 +45,6 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+/.vs/VSWorkspaceState.json
+/.vs/slnx.sqlite
+/.vs/PowerOfTheShell/v15/.suo
