@@ -1,4 +1,4 @@
-﻿## Power of The Shell - Azure
+## Power of The Shell - Azure
 > This Repository is for random Microsoft Azure scripts I have created for one task or another.
 
 > I get inspiration and help from the PowerShell community so willing to give back in return, also happy if you fork any of the files - or recommend improvements.
