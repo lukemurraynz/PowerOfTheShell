@@ -1,4 +1,4 @@
-# Power of The Shell
+# PowerofTheShell
 > This Repository is for random Knicks and knacks - in relation to PowerShell (Windows based) scripts I have created for one task or another.
 
 > I get inspiration and help from the PowerShell community so willing to give back in return, also happy if you fork any of the files - or recommend improvements.
