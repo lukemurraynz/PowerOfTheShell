@@ -1,4 +1,4 @@
-## Power of The Shell - Active Directory
+## PowerofTheShell - Active Directory
 > This Repository is for random Active Directory PowerShell (Windows based) scripts I have created for one task or another, these will be either directly Active Directory based or based on any Active Directory Domain Service service.
 
 > I get inspiration and help from the PowerShell community so willing to give back in return, also happy if you fork any of the files - or recommend improvements.
