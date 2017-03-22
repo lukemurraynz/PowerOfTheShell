@@ -2,9 +2,9 @@ function Connect-SCCM
 {
   <#
       .SYNOPSIS
-      Connects to Wintec Configuration Manager Environment via PowerShell
+      Connects to Configuration Manager Environment via PowerShell
       .DESCRIPTION
-      Function designed to Connect to the Wintec WNT SCCM Primary Site
+      Function designed to Connect to the SCCM Primary Site
       .EXAMPLE
       Connect-SCCM
       .AUTHOR
