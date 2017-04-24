@@ -7,9 +7,6 @@ function Resolve-Port
     Detailed Description
     .EXAMPLE
     Resolve-Port -server Server1 -port 3389
-    Resolve-Port -server Server1,Server2,Server3 -port 3389
-    .EXAMPLE
-    Resolve-Port -server Server1 -port 3389
     .AUTHOR
     Luke Murray (Luke.Geek.NZ)
     Copied from: https://social.technet.microsoft.com/Forums/office/en-US/7a3304c7-b564-4acc-ab28-2648a20f4bce/telnet-using-powershell?forum=winserverpowershell and put into a Function.
