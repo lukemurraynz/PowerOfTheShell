@@ -2,7 +2,7 @@ function Resolve-Port
 {
   <#
     .SYNOPSIS
-    Resolves Port Script. Script that checks to see if a server is up and responding to a specific port. This was 
+    Resolves Port Script. Script that checks to see if a server is up and responding to a specific port.
     .DESCRIPTION
     Detailed Description
     .EXAMPLE
