@@ -1,12 +1,11 @@
-if ( (Test-Path C:\Windows\System32\MicTray64.exe) -or (Test-Path C:\Windows\System32\MicTray.exe) ) { 
-  Write-Verbose True -Verbose
+if ( (Test-Path -Path $env:windir\System32\MicTray64.exe) -or (Test-Path -Path $env:windir\System32\MicTray.exe) ) { 
+
+    Remove-Item -Path $env:windir\System32\MicTray64.exe -ErrorAction SilentlyContinue
+    Remove-Item -Path $env:windir\System32\MicTray.exe -ErrorAction SilentlyContinue
+    Remove-Item -Path $env:PUBLIC\MicTray.log -ErrorAction SilentlyContinue
+    Write-Verbose -Message True -Verbose
 }
 else
- {Write-Verbose False -Verbose
+ {
+  Write-Verbose -Message False -Verbose
  }
-
-#Remove-Item C:\Windows\System32\MicTray64.exe  | Out-Null
-#Remove-Item C:\Windows\System32\MicTray.exe -Force | Out-Null
-#Remove-Item C:\Users\Public\MicTray.log -Force | Out-Null
-
-
