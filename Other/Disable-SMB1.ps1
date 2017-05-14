@@ -1,1 +1,1 @@
-Set-SmbServerConfiguration -EnableSMB1Protocol $false
+Disable-WindowsOptionalFeature -Online -FeatureName smb1protocol  $false
