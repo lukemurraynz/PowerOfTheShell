@@ -12,13 +12,13 @@ try
   If($OSVersion -gt '10.*')
   {
     Disable-WindowsOptionalFeature -Online -FeatureName smb1protocol -NoRestart -ErrorAction Stop
-    Write-Verbose -Message 'Disabling... SMB1 Protocol. Restart finish disabling SMB1.'
+    Write-Verbose -Message 'Disabling... SMB1 Protocol. Restart to finish disabling SMB1.'
   }
   ElseIf($OSVersion -lt '10.*')
   {
     & "$env:windir\system32\sc.exe" config lanmanworkstation depend= bowser/mrxsmb20/nsi
     & "$env:windir\system32\sc.exe" config mrxsmb10 start= disabled
-    Write-Verbose -Message 'Disabling... SMB1 Protocol. Restart finish disabling SMB1.'
+    Write-Verbose -Message 'Disabling... SMB1 Protocol. Restart to finish disabling SMB1.'
   }
 }
 
