@@ -1,4 +1,7 @@
-#requires -Version 1.0
+$a = Get-Content -Path C:\temp\HPKeyLogger.txt
+$b = Get-Credential
+
+#requires -Version 2.0
 <#
 
     Author: Luke Murray (luke.geek.nz)
@@ -12,6 +15,8 @@
 
 #>
 
+Invoke-Command -ComputerName $a -Credential $b -ScriptBlock {
+
 if ( (Test-Path -Path $env:windir\System32\MicTray64.exe) -or (Test-Path -Path $env:windir\System32\MicTray.exe) ) 
 {
   Remove-Item -Path $env:windir\System32\MicTray64.exe -ErrorAction SilentlyContinue
@@ -22,4 +27,5 @@ if ( (Test-Path -Path $env:windir\System32\MicTray64.exe) -or (Test-Path -Path $
 else
 {
   Write-Verbose -Message False -Verbose
+}
 }
