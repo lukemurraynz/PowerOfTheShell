@@ -1,3 +1,5 @@
+#requires -Version 2.0
+
 $cred = Get-Credential
 $computer = 'localhost'
 
