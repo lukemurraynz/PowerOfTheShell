@@ -5,15 +5,14 @@ Install-Module AzSK -Scope CurrentUser -AllowClobber
 Import-Module -Name AzSK
 $email = 'example@example.com, example1@example.com'
 $phone = '00000000'
-#Subid needs to be changed 
-$subid = '9d2b9f7e-028e-45f7-b8ee-f447d9a6183f'
+#Subid needs to be changed to your subscription ID
+$subid = '00000000-0000-0000-0000-000000000000'
 
 #Gets Azure Subscription Security Status and outputs to CSV
 Get-AzSKSubscriptionSecurityStatus -SubscriptionId $subid
 
 #Sets Azure Subscription Security, creates mandatory service accounts, 
 Set-AzSKSubscriptionSecurity -SubscriptionId $subid -SecurityContactEmails $email -SecurityPhoneNumber $phone
-
 
 #The subscription access control provisioning script ensures that certain central accounts and roles are setup in your subscription.
 Set-AzSKSubscriptionRBAC -SubscriptionId $subid
