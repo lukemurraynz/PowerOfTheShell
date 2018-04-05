@@ -2,7 +2,7 @@
 #https://github.com/azsdk/azsdk-docs#references
 
 Install-Module AzSK -Scope CurrentUser -AllowClobber
-Import-Module AzSK
+Import-Module -Name AzSK
 $email = 'example@example.com, example1@example.com'
 $phone = '00000000'
 #Subid needs to be changed 
