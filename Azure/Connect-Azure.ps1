@@ -7,7 +7,6 @@
     .DESCRIPTION
     Loads the Azure Resource Manager modules, then connects to Azure and opens a Window allowing you to select what subscription.
 
-
     .NOTES
     Version:        1.0
     Author:         Luke Murray (Luke.Geek.NZ)
@@ -21,7 +20,6 @@
   
 #>
 
-
 #---------------------------------------------------------[Initialisations]--------------------------------------------------------
 
 #Set Error Action to Silently Continue
@@ -29,7 +27,6 @@ $ErrorActionPreference = 'Stop'
 
 #Import Modules & Snap-ins
 Import-Module -Name AzureRM -Verbose -Force
-
 
 #-----------------------------------------------------------[Functions]------------------------------------------------------------
 
@@ -42,7 +39,6 @@ function Connect-Azure
   $subscriptionName = (Get-AzureRmSubscription) | Out-GridView -Title 'Select Azure Subscription' -PassThru
   Set-AzureRmContext -SubscriptionName $subscriptionName
 }
-
 
 #-----------------------------------------------------------[Execution]------------------------------------------------------------
 
