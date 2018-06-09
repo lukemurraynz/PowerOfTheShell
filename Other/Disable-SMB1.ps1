@@ -8,15 +8,6 @@
     This script disables SMB1. If Windows 10 or greater it will use the PowerShell cmdlet to disable SMB1 with no restart, if the OS is
     less than Windows 10 - such as Windows 7 it will set the services to be disabled manually. Needs to be run as Administrator.
 
-    .PARAMETER <Parameter_Name>
-    None
-
-    .INPUTS
-    None
-
-    .OUTPUTS
-    None
-
     .NOTES
     Version:        1.0
     Author:         Luke Murray
