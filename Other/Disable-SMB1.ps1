@@ -21,7 +21,10 @@
     Version:        1.0
     Author:         Luke Murray
     Creation Date:  14/05/17
-    Purpose/Change: Initial script development
+    Purpose/Change: 
+    14/05/17 - Initial script creation
+    09/06/18 - Script formatting changed and elevation function put in.
+
 
     .EXAMPLE
     ./Disable-SMB1.ps1
