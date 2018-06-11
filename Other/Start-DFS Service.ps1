@@ -1,19 +1,32 @@
 ﻿#requires -Version 2.0
 
 <#
+.SYNOPSIS
+  Starts the DFS service
 
-    Author: Luke Murray (Luke.Geek.NZ)
-    Version: 0.2
-    Version History:
-    0.1 - Created the script with basic Catch blocks
-    0.2 - Added additional Error Checking and Event Log query
+.DESCRIPTION
+  Changes the Remote Registry service to Automatic start-up and Start the DFS NameSpace service dependencies, then start the DFS namespace service. 
+  If the service does not start, it will retrieve the last 10 event log items from the DFS log.
 
-    Purpose: To Change the Remote Registry service to Automatic start-up and Start the DFS NameSpace service dependencies, then start the DFS namespace service.
+.NOTES
+  Version:        1.0
+  Author:         Luke Murray (Luke.Geek.NZ)
+  Creation Date:  20/03/17
+  Purpose/Change: 
+  20/03/17 - Initial script development
+  11/06/18 - Updated script formatting
 
+.EXAMPLE
+  ./Start-DFS-Service.ps1
+  
 #>
+
+#---------------------------------------------------------[Script Parameters]------------------------------------------------------
 
 $ServiceName = 'DFS'
 $ErrorActionPreference = 'Stop'
+
+#-----------------------------------------------------------[Execution]------------------------------------------------------------
 
 Try 
 {
@@ -26,9 +39,7 @@ Catch
 Try
 {
   $ServiceDependency = Get-Service -Name $ServiceName -DependentServices
-  $ServiceDependency |
-  Set-Service -StartupType Automatic |
-  Start-Service
+  $ServiceDependency | Set-Service -StartupType Automatic | Start-Service
   Write-Verbose -Message "$ServiceName dependencies have started. Will now try starting the $ServiceName service.." -Verbose
 }
 catch [Microsoft.PowerShell.Commands.ServiceCommandException]
