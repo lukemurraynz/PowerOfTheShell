@@ -32,7 +32,7 @@ foreach ($resource in $resources)
  $a = Get-AzureRmResource -ResourceType $resource.ResourceType
 
     $results += [pscustomobject]@{
-    'Category' = $a.Count
+    'Count' = $a.Count
     'Resource' = $resource.ResourceType
   }
 }
