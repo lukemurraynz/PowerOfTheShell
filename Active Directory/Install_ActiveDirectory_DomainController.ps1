@@ -11,16 +11,13 @@ Test-ADDSDomainControllerInstallation -InstallDns -Credential $cred -DomainName 
 Install-ADDSDomainController -InstallDns -DomainName $domain –Confirm:$False
 
 #Verify AD services are running
-Get-Service adws,kdc,netlogon,dns
+Get-Service adws, kdc, netlogon, dns
 #Verify AD is replicating
-Get-ADReplicationPartnerMetadata -Target * -Partition * | Select-Object Server,Partition,Partner,ConsecutiveReplicationFailures,LastReplicationSuccess,LastRepicationResult
+Get-ADReplicationPartnerMetadata -Target * -Partition * | Select-Object Server, Partition, Partner, ConsecutiveReplicationFailures, LastReplicationSuccess, LastRepicationResult
 
-
-<#
-Review Logs after AD promotion for errors:
+#Review Logs after AD promotion for errors:
 Get-Eventlog "Directory Service" | select entrytype, source, eventid, message
 Get-Eventlog "Active Directory Web Services" | select entrytype, source, eventid, message
-#>
 
 #Install DHCP
 Install-WindowsFeature DHCP -IncludeManagementTools
