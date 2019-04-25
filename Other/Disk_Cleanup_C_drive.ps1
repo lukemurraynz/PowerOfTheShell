@@ -130,7 +130,14 @@ Get-ChildItem 'C:\inetpub\logs\LogFiles\*' -Recurse -Force -ErrorAction Silently
 } |
     Remove-Item -Force -Verbose -Recurse -ErrorAction SilentlyContinue
 ## All IIS Logfiles over x days old have been removed Successfully!
-	
+
+## Deletes the Microsoft Azure Extension Logs.
+Get-ChildItem 'C:\WindowsAzure*' -Recurse -Force -Verbose -ErrorAction SilentlyContinue |
+    Where-Object -FilterScript {
+    ($_.CreationTime -lt $(Get-Date).AddDays( - $DaysToDelete))
+} |
+    Remove-Item -force -Verbose -recurse -ErrorAction SilentlyContinue
+    
 ## Cleans VMWare Horizon Logs if applicable.
 Get-ChildItem 'C:\ProgramData\VMware\vCenterServer\logs\*' -Recurse -Force -ErrorAction SilentlyContinue |
     Where-Object -FilterScript {
