@@ -138,6 +138,21 @@ Get-ChildItem 'C:\WindowsAzure*' -Recurse -Force -Verbose -ErrorAction SilentlyC
 } |
     Remove-Item -force -Verbose -recurse -ErrorAction SilentlyContinue
     
+
+## Clears Windows Defender Logs
+Get-ChildItem 'C:\ProgramData\Microsoft\Windows Defender\Scans\History\Results\Resource\*' -Recurse -Force -Verbose -ErrorAction SilentlyContinue |
+Where-Object -FilterScript {
+($_.CreationTime -lt $(Get-Date).AddDays( - $DaysToDelete))
+} |
+Remove-Item -force -Verbose -recurse -ErrorAction SilentlyContinue
+
+## Clears Windows Error Reporting Reports
+Get-ChildItem 'C:\ProgramData\Microsoft\Windows\WER\ReportArchive\*' -Recurse -Force -Verbose -ErrorAction SilentlyContinue |
+Where-Object -FilterScript {
+($_.CreationTime -lt $(Get-Date).AddDays( - $DaysToDelete))
+} |
+Remove-Item -force -Verbose -recurse -ErrorAction SilentlyContinue
+
 ## Cleans VMWare Horizon Logs if applicable.
 Get-ChildItem 'C:\ProgramData\VMware\vCenterServer\logs\*' -Recurse -Force -ErrorAction SilentlyContinue |
     Where-Object -FilterScript {
