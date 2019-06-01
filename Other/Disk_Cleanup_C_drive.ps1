@@ -122,6 +122,15 @@ Get-ChildItem 'C:\users\*\AppData\Local\Microsoft\Windows\Temporary Internet Fil
 } |
     Remove-Item -force -recurse -ErrorAction SilentlyContinue
 ## All Temporary Internet Files have been removed successfully!
+
+## Removes Internet Explorer suggusted sites file
+Get-ChildItem 'C:\Users\*\AppData\Local\Microsoft\Windows\INetCache\Low\SuggestedSites.dat' `
+    -Recurse -Force -Verbose -ErrorAction SilentlyContinue |
+    Where-Object -FilterScript {
+    ($_.CreationTime -le $(Get-Date).AddDays( - $DaysToDelete))
+} |
+    Remove-Item -force -recurse -ErrorAction SilentlyContinue
+## Internet Explorer suggusted sites file has been removed successfully!
 	
 ## Cleans IIS Logs if applicable.
 Get-ChildItem 'C:\inetpub\logs\LogFiles\*' -Recurse -Force -ErrorAction SilentlyContinue |
