@@ -149,7 +149,7 @@ Get-ChildItem 'C:\inetpub\mailroot\Badmail\*' -Recurse -Force -ErrorAction Silen
 ## All IIS Logfiles over x days old have been removed Successfully!
 
 ## Deletes the Microsoft Azure Extension Logs.
-Get-ChildItem 'C:\WindowsAzure*' -Recurse -Force -Verbose -ErrorAction SilentlyContinue |
+Get-ChildItem 'C:\WindowsAzure\*' -Recurse -Force -Verbose -ErrorAction SilentlyContinue |
     Where-Object -FilterScript {
     ($_.CreationTime -lt $(Get-Date).AddDays( - $DaysToDelete))
 } |
