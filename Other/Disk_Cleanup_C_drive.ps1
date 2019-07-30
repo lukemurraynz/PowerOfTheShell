@@ -122,6 +122,15 @@ Get-ChildItem 'C:\users\*\AppData\Local\Microsoft\Windows\Temporary Internet Fil
 } |
     Remove-Item -force -recurse -ErrorAction SilentlyContinue
 ## All Temporary Internet Files have been removed successfully!
+
+## Removes Internet Explorer suggusted sites file
+Get-ChildItem 'C:\Users\*\AppData\Local\Microsoft\Windows\INetCache\Low\SuggestedSites.dat' `
+    -Recurse -Force -Verbose -ErrorAction SilentlyContinue |
+    Where-Object -FilterScript {
+    ($_.CreationTime -le $(Get-Date).AddDays( - $DaysToDelete))
+} |
+    Remove-Item -force -recurse -ErrorAction SilentlyContinue
+## Internet Explorer suggusted sites file has been removed successfully!
 	
 ## Cleans IIS Logs if applicable.
 Get-ChildItem 'C:\inetpub\logs\LogFiles\*' -Recurse -Force -ErrorAction SilentlyContinue |
@@ -131,13 +140,43 @@ Get-ChildItem 'C:\inetpub\logs\LogFiles\*' -Recurse -Force -ErrorAction Silently
     Remove-Item -Force -Verbose -Recurse -ErrorAction SilentlyContinue
 ## All IIS Logfiles over x days old have been removed Successfully!
 
+## Cleans IIS Logs if applicable.
+Get-ChildItem 'C:\inetpub\mailroot\Badmail\*' -Recurse -Force -ErrorAction SilentlyContinue |
+    Where-Object -FilterScript {
+    ($_.CreationTime -le $(Get-Date).AddDays( - $DaysToDelete))
+} |
+    Remove-Item -Force -Verbose -Recurse -ErrorAction SilentlyContinue
+## All IIS Logfiles over x days old have been removed Successfully!
+
 ## Deletes the Microsoft Azure Extension Logs.
-Get-ChildItem 'C:\WindowsAzure*' -Recurse -Force -Verbose -ErrorAction SilentlyContinue |
+Get-ChildItem 'C:\WindowsAzure\*' -Recurse -Force -Verbose -ErrorAction SilentlyContinue |
     Where-Object -FilterScript {
     ($_.CreationTime -lt $(Get-Date).AddDays( - $DaysToDelete))
 } |
     Remove-Item -force -Verbose -recurse -ErrorAction SilentlyContinue
     
+
+## Clears Windows Defender Logs
+Get-ChildItem 'C:\ProgramData\Microsoft\Windows Defender\Scans\History\Results\Resource\*' -Recurse -Force -Verbose -ErrorAction SilentlyContinue |
+Where-Object -FilterScript {
+($_.CreationTime -lt $(Get-Date).AddDays( - $DaysToDelete))
+} |
+Remove-Item -force -Verbose -recurse -ErrorAction SilentlyContinue
+
+## Clears Windows Error Reporting Reports
+Get-ChildItem 'C:\ProgramData\Microsoft\Windows\WER\ReportQueue\*' -Recurse -Force -Verbose -ErrorAction SilentlyContinue |
+Where-Object -FilterScript {
+($_.CreationTime -lt $(Get-Date).AddDays( - $DaysToDelete))
+} |
+Remove-Item -force -Verbose -recurse -ErrorAction SilentlyContinue
+
+## Clears Windows Error Reporting Reports
+Get-ChildItem 'C:\Users\*\AppData\Local\Microsoft\Windows\WER\ReportQueue\*' -Recurse -Force -Verbose -ErrorAction SilentlyContinue |
+Where-Object -FilterScript {
+($_.CreationTime -lt $(Get-Date).AddDays( - $DaysToDelete))
+} |
+Remove-Item -force -Verbose -recurse -ErrorAction SilentlyContinue
+
 ## Cleans VMWare Horizon Logs if applicable.
 Get-ChildItem 'C:\ProgramData\VMware\vCenterServer\logs\*' -Recurse -Force -ErrorAction SilentlyContinue |
     Where-Object -FilterScript {
@@ -159,7 +198,17 @@ $objFolder.items() | ForEach-Object -Process {
 switch  -Regex ($OperatingSystemVersion) {
     '(^10\.0.*|^6\.3.*)' {
 
-        dism.exe /online /Cleanup-Image /StartComponentCleanup
+        dism.exe /Online /Cleanup-Image /StartComponentCleanup
+    }
+}
+{
+    continue
+}
+    
+switch  -Regex ($OperatingSystemVersion) {
+    '(^10\.0.*)' {
+
+        cleanmgr.exe /verylowdisk /d c
     }
 }
 {
