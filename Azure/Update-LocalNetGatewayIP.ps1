@@ -25,6 +25,14 @@ $azureAPI = "Your API Key"
 $azurePassword = ConvertTo-SecureString "$azureAPI" -AsPlainText -Force
 $psCred = New-Object System.Management.Automation.PSCredential($azureAplicationId , $azurePassword)
 Connect-AzAccount -Credential $psCred -TenantId $azureTenantId  -ServicePrincipal 
+
+<#
+
+Before adding the Azure Service Principal in and testing as a Scheduled Task, it is recommended that you just test the script first by connecting manually using:
+
+Connect-AzAccount
+
+ #>
   
 #-----------------------------------------------------------[Execution]------------------------------------------------------------  
 
