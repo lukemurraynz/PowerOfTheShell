@@ -13,11 +13,18 @@
 #---------------------------------------------------------[Initialisations]--------------------------------------------------------
   
 $ErrorActionPreference = 'Stop'
-Connect-AzAccount
 
 [Object]$PublicIP = (Invoke-WebRequest -Uri 'http://ifconfig.me/ip').Content 
 [string]$ResourceGroup = 'z_Network'
 [string]$LocalNetworkGateway = 'Prod-SiteToSite-VLAN-LNGateway'
+
+# Use the application ID as the username, and the secret as password
+$azureAplicationId ="Azure AD Application Id"
+$azureTenantId= "Your Tenant Id"
+$azureAPI = "Your API Key"
+$azurePassword = ConvertTo-SecureString "$azureAPI" -AsPlainText -Force
+$psCred = New-Object System.Management.Automation.PSCredential($azureAplicationId , $azurePassword)
+Connect-AzAccount -Credential $psCred -TenantId $azureTenantId  -ServicePrincipal 
   
 #-----------------------------------------------------------[Execution]------------------------------------------------------------  
 
