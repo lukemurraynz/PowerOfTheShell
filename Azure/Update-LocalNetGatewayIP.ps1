@@ -29,7 +29,6 @@ $GatewayIP = $a.GatewayIpAddress
 
 If ($PublicIP -ne $GatewayIP) {
 
-    Write-Output -InputObject ('Updating the Local Network Gateway IP to {0}' -f $PublicIP)
     $a.GatewayIpAddress = $PublicIP
     Set-AzLocalNetworkGateway -LocalNetworkGateway $a
 
@@ -37,6 +36,6 @@ If ($PublicIP -ne $GatewayIP) {
   
 Else {
 
-    Write-Output -InputObject 'Nothing needs to be done, the IP is already set'
+   $null
     
 }
