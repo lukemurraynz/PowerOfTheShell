@@ -26,3 +26,5 @@ function New-AzureResourceGroup
   
   New-AzResourceGroup -Name $Name -Location $Location
 }
+
+New-AzureResourceGroup -Name $Name -Location $Location
