@@ -1,21 +1,21 @@
+#requires -Version 2.0 -Modules Az.Accounts, Az.Resources, CredentialManager
 function New-AzureResourceGroup
 {
   <#
-    .SYNOPSIS
-    Creates Azure Resource Group
-    .DESCRIPTION
-    Creates Azure Resource Group
-    .EXAMPLE
-    New-AzureResourceGroup
+      .SYNOPSIS
+      Creates Azure Resource Group
+      .DESCRIPTION
+      Creates Azure Resource Group
+      .EXAMPLE
+      New-AzureResourceGroup
   #>
-  [CmdletBinding()]
   param
   (
-    [Parameter(Mandatory=$false, Position=0)]
-    [System.String]
+    [Parameter(Position=0)]
+    [string]
     $Name = 'RG01',
-    [Parameter(Mandatory=$false, Position=1)]
-    [System.String]
+    [Parameter(Position=1)]
+    [string]
     $Location = 'Australia East'
   )
   
@@ -24,7 +24,5 @@ function New-AzureResourceGroup
   
   Connect-AzAccount -ServicePrincipal -Credential $pscredential -Tenant $tenantId
   
-  New-AzResourceGroup -Name $Name -Location $Location -Tag @{Empty=$null; Department="Marketing"}
+  New-AzResourceGroup -Name $Name -Location $Location
 }
-
-New-AzureResourceGroup -Name $Name -Location $Location
