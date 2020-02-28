@@ -5,7 +5,7 @@ function New-AzureResourceGroup
       .SYNOPSIS
       Creates Azure Resource Group
       .DESCRIPTION
-      Creates Azure Resource Group
+      Creates Azure Resource Group function, created as a test function for Universal Automation Desktop
       .EXAMPLE
       New-AzureResourceGroup
   #>
