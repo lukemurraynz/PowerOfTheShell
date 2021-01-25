@@ -178,12 +178,19 @@ Where-Object -FilterScript {
 Remove-Item -force -Verbose -recurse -ErrorAction SilentlyContinue
 
 ## Cleans VMWare Horizon Logs if applicable.
-Get-ChildItem 'C:\ProgramData\VMware\vCenterServer\logs\*' -Recurse -Force -ErrorAction SilentlyContinue |
-    Where-Object -FilterScript {
-    ($_.LastWriteTime -le $(Get-Date).AddDays( - $DaysToDelete))
+Get-ChildItem 'C:\ProgramData\Microsoft\Windows Defender\Scans\History\Results\Resource\*' -Recurse -Force -Verbose -ErrorAction SilentlyContinue |
+Where-Object -FilterScript {
+($_.CreationTime -lt $(Get-Date).AddDays( -$DaysToDelete))
 } |
-    Remove-Item -Force -Verbose -Recurse -ErrorAction SilentlyContinue
+Remove-Item -force -Verbose -recurse -ErrorAction SilentlyContinue
 	
+## Cleans Datto RMM packages if applicable.
+Get-ChildItem 'C:\ProgramData\CentraStage\Packages\*' -Recurse -Force -Verbose -ErrorAction SilentlyContinue |
+Where-Object -FilterScript {
+($_.CreationTime -lt $(Get-Date).AddDays( - $DaysToDelete))
+} |
+Remove-Item -force -Verbose -recurse -ErrorAction SilentlyContinue
+
 ## deletes the contents of the recycling Bin.
 ## The Recycling Bin is now being emptied!
 $objFolder.items() | ForEach-Object -Process {
