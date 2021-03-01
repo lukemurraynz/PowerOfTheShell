@@ -181,7 +181,7 @@ ForEach ($country in $Iso3166CountryList)
  
     $priority++
                                
-    $nsg | Add-AzNetworkSecurityRuleConfig -Name "Block_$($CountryName)_$char" -Description "Blocks access from $Countryname" -Access Deny `
+    $nsg | Add-AzNetworkSecurityRuleConfig -Name "Block_$($CountryName)_$($char)" -Description "Blocks access from $Countryname" -Access Deny `
     -Protocol * -Direction Inbound -Priority $priority -SourceAddressPrefix "$range" -SourcePortRange * `
     -DestinationAddressPrefix * -DestinationPortRange *
               
