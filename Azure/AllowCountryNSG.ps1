@@ -155,8 +155,10 @@ ForEach ($country in $Iso3166CountryList)
 {
   $CountryName = $country.name      
   
+  If ($CountryName -eq "New Zealand") {
+  $CN = $country.alpha2Code
   
-  $IPRanges = Get-OdCountryIpAddressCidrList -Protocol Ipv4 -CountryAlpha2Code $country.alpha2Code 
+  $IPRanges = Get-OdCountryIpAddressCidrList -Protocol Ipv4 -CountryAlpha2Code $CN
   $IPRangeCidr = $IPRanges.CidrList 
               
   ForEach ($range in $IPRangeCidr)
@@ -181,11 +183,11 @@ ForEach ($country in $Iso3166CountryList)
  
     $priority++
                                
-    $nsg | Add-AzNetworkSecurityRuleConfig -Name "Block_$($CountryName)_$($char)" -Description "Blocks access from $Countryname" -Access Deny `
+    $nsg | Add-AzNetworkSecurityRuleConfig -Name "Allow_$($CN)_$($char)" -Description "Allows access from $Countryname" -Access Allow `
     -Protocol * -Direction Inbound -Priority $priority -SourceAddressPrefix "$range" -SourcePortRange * `
     -DestinationAddressPrefix * -DestinationPortRange *
               
     $nsg | Set-AzNetworkSecurityGroup
-  }
+  }}
 }
 
