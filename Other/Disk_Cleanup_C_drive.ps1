@@ -105,6 +105,18 @@ Get-ChildItem 'C:\Windows\Logs\CBS\*' -Recurse -Force -Verbose -ErrorAction Sile
 } |
     Remove-Item -force -Verbose -recurse -ErrorAction SilentlyContinue
 ## The Contents of Windows SoftwareDistribution have been removed successfully!
+
+## Deletes the contents of Dropbox cache folder.
+Get-ChildItem "%HOMEPATH%\Dropbox\.dropbox.cache\*" -Recurse -Force -Verbose -ErrorAction SilentlyContinue |
+    Where-Object -FilterScript {
+    ($_.CreationTime -lt $(Get-Date).AddDays( - $DaysToDelete))
+} |
+    Remove-Item -force -Verbose -recurse -ErrorAction SilentlyContinue
+## The Contents of Windows SoftwareDistribution have been removed successfully!
+
+
+%HOMEPATH%\Dropbox\.dropbox.cache
+
 	
 ## Delets all files and folders in user's Temp folder. 
 Get-ChildItem 'C:\users\*\AppData\Local\Temp\*' -Recurse -Force -ErrorAction SilentlyContinue |
