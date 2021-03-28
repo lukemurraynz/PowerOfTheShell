@@ -162,8 +162,16 @@ Function Cleanup {
         ($_.CreationTime -lt $(Get-Date).AddDays( - $DaysToDelete))
     } |
     Remove-Item -force -Verbose -recurse -ErrorAction SilentlyContinue
-    
 
+    ## Deletes the Microsoft Azure Backup Logs.
+    Get-ChildItem 'C:\Program Files\Microsoft Azure Recovery Services Agent\Temp\*' -Recurse -Force -Verbose -ErrorAction SilentlyContinue |
+    Where-Object -FilterScript {
+        ($_.CreationTime -lt $(Get-Date).AddDays( - $DaysToDelete))
+    } |
+    Remove-Item -force -Verbose -recurse -ErrorAction SilentlyContinue
+
+    C:\program files\Microsoft Azure Recovery Services Agent\Temp
+    
     ## Clears Windows Defender Logs
     Get-ChildItem 'C:\ProgramData\Microsoft\Windows Defender\Scans\History\Results\Resource\*' -Recurse -Force -Verbose -ErrorAction SilentlyContinue |
     Where-Object -FilterScript {
