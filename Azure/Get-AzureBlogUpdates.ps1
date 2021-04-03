@@ -6,7 +6,8 @@ function Get-AzureBlogUpdates {
       Retrieves the latest Updates of Azure, from the Azure Blog RSS feed.
       .NOTES
       Version:        1.0
-      Author:         Luke Murray (Luke.Geek.NZ)
+      Author:         Luke Murray (Luke.Geek.NZ) 
+      Website: https://luke.geek.nz/keep-up-to-date-with-latest-changes-on-azure-using-powershell
       Creation Date:  03.04.21
       Purpose/Change: 
       03.04.21 - Intital script development
@@ -14,6 +15,7 @@ function Get-AzureBlogUpdates {
       Get-AzureBlogUpdate
 
   #>
+  #Retrieving RSS Feed Content - as XML, then converting into PSObject
     $xml = [xml](Invoke-WebRequest -Uri 'https://azurecomcdn.azureedge.net/en-us/updates/feed/').content
     $Array = @()
     foreach ($y in $xml.rss.channel.selectnodes('//item'))
@@ -29,7 +31,8 @@ function Get-AzureBlogUpdates {
     
         $Array += $PSObject
     } 
-  
+    #Some article had multiple categories, to make it easier for reporting, joined the categories together and got rid of duplicates.
+
     $results = @()
     ForEach ($item in $Array) {
         $Category = Foreach ($title in $item.Title)
@@ -45,19 +48,3 @@ function Get-AzureBlogUpdates {
     }
     $results
 }
-
-#Runs the Function:
-Get-AzureBlogUpdates
-
-#EXAMPLE - Gets Azure Blog Updates, that have been published in the last 7 days. 
-$PublishedIntheLastDays = (Get-Date).AddDays(-7)
-Get-AzureBlogUpdates | Where-Object 'Published Date' -GT $PublishedIntheLastDays
-
-#EXAMPLE - Gets all Azure Blog Updates, and displays it as a Table, organised by Category
-Get-AzureBlogUpdates | Sort-Object Category -Descending | Format-Table
-
-#EXAMPLE -Gets the latest 10 Azure Blog Articles
-Get-AzureBlogUpdates | Select -Last 10
-
-#EXAMPLE - Gets the Azure Blog Update articles, where the title has Automation in it.
-Get-AzureBlogUpdates | Where-Object Title -match 'Automation' 
