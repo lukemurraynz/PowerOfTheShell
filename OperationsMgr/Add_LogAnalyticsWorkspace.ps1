@@ -13,7 +13,7 @@
     If script is being published by Configuration as a package, create a Command Line installer:
     "%Windir%\sysnative\WindowsPowerShell\v1.0\powershell.exe" -ExecutionPolicy Bypass -Command  .\Add_LogAnalyticsWorkspace.ps1
 
-    If the proxy requires authentication, then the following null entries need to be replaced with user,password: $mma.SetProxyInfo("$proxy","$null","$null")
+    If the proxy requires authentication, then the following null entries need to be replaced with user,password: $mma.SetProxyInfo("$proxy","$null","$null"). If you aren't using a proxy then you can remove the entire mma.SetProxyInfo line.
 
     Location: https://github.com/lukemurraynz/PowerOfTheShell/blob/master/OperationsMgr/Add_LogAnalyticsWorkspace.ps1
 #>
