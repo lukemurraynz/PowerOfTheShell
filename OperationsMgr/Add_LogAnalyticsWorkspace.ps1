@@ -10,9 +10,12 @@
     #$healthServiceSettings = New-Object -ComObject 'AgentConfigManager.MgmtSvcCfg'
     #$proxyMethod = $healthServiceSettings | Get-Member -Name 'SetProxyInfo'
 
-    If script is being published by SCCM as a package, create a Command Line installer:
+    If script is being published by Configuration as a package, create a Command Line installer:
     "%Windir%\sysnative\WindowsPowerShell\v1.0\powershell.exe" -ExecutionPolicy Bypass -Command  .\Add_LogAnalyticsWorkspace.ps1
 
+    If the proxy requires authentication, then the following null entries need to be replaced with user,password: $mma.SetProxyInfo("$proxy","$null","$null")
+
+    Location: https://github.com/lukemurraynz/PowerOfTheShell/blob/master/OperationsMgr/Add_LogAnalyticsWorkspace.ps1
 #>
 
 $workspaceId = "INSERTLOGANALYTICSWORKSPACEIDHERE"
