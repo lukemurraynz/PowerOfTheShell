@@ -39,6 +39,10 @@ Set-ADDomainMode -identity $domain -DomainMode Windows2008R2Forest
 Set-ADForestMode -Identity $domain -ForestMode Windows2008R2Forest
 #>
 
+<#Enable AD Recycle Bin
+Enable-ADOptionalFeature 'Recycle Bin Feature' -Scope ForestOrConfigurationSet -Target $domain
+#>
+
 <#Enable PIM
 Enable-ADOptionalFeature 'Privileged Access Management Feature' -Scope ForestOrConfigurationSet -Target $domain
 #>
