@@ -23,3 +23,18 @@ Get-Eventlog "Active Directory Web Services" | select entrytype, source, eventid
 Install-WindowsFeature DHCP -IncludeManagementTools
 netsh dhcp add securitygroups
 Restart-service dhcpserver
+
+#Display the current domain functional level using PowerShell:
+Get-ADDomain | fl Name, DomainMode
+
+#Display the current forest functional level using PowerShell:
+Get-ADForest | fl Name, ForestMode
+
+#Raise Domain and Functional Level
+Set-ADDomainMode -identity $domain -DomainMode Windows2016Domain
+Set-ADForestMode -Identity $domain -ForestMode Windows2016Domain
+
+<#Downgrade Domain and Functional Level
+Set-ADDomainMode -identity $domain -DomainMode Windows2008R2Forest
+Set-ADForestMode -Identity $domain -ForestMode Windows2008R2Forest
+#>
