@@ -38,3 +38,7 @@ Set-ADForestMode -Identity $domain -ForestMode Windows2016Domain
 Set-ADDomainMode -identity $domain -DomainMode Windows2008R2Forest
 Set-ADForestMode -Identity $domain -ForestMode Windows2008R2Forest
 #>
+
+<#Enable PIM
+Enable-ADOptionalFeature 'Privileged Access Management Feature' -Scope ForestOrConfigurationSet -Target $domain
+#>
