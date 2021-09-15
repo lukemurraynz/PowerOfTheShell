@@ -2,3 +2,5 @@
 New-Item -Path 'HKLM:\SOFTWARE\Policies\Microsoft\PassportForWork\PINComplexity' -Force
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\PassportForWork\PINComplexity' -Name 'MinimumPINLength' -Value 4 -PropertyType DWord -Force 
 New-ItemProperty -LiteralPath 'HKLM:\SOFTWARE\Policies\Microsoft\PassportForWork\PINComplexity' -Name 'MaximumPINLength' -Value 10 -PropertyType DWord -Force 
+#PC needs to be restarted to pickup the PIN requirements
+#Restart-Computer -Force
