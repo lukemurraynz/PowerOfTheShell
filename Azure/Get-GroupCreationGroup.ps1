@@ -4,5 +4,8 @@ Connect-AzureAD
 (Get-AzureADDirectorySetting).values
 
 # Gets Azure AD group Info
-$id = ''
+$a = (Get-AzureADDirectorySetting).Values
+$groupCreationAllowedGroupId = $a| Where-Object {$_.Name -eq "GroupCreationAllowedGroupId"}
+$id = $groupCreationAllowedGroupId.Value
+
 Get-AzureADGroup -ObjectId $id| fl
