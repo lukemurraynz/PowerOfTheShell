@@ -4,7 +4,7 @@
 
 $AppRegName = 'SPN.Sub.Contributor'
 $env:AZURE_DEVOPS_EXT_PAT = '1111111111111111111111111'
-$azDevOpsOrgUrl = 'https://dev.azure.com/lukemurraynz/'
+$azDevOpsOrgUrl = 'https://dev.azure.com/orgname/'
 $azDevOpsProjName = 'ProjectA'
 
 #Connects to Microsoft Azure
