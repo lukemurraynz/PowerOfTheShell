@@ -1,5 +1,6 @@
-- name: Inclusiveness Analyzer
-  uses: microsoft/InclusivenessAnalyzer@v1.0.1
+
+-name: Inclusiveness Analyzer
+  uses:microsoft/InclusivenessAnalyzer@v1.0.1
   with:
     # Fails the step if a non-inclusive term is found
     failOnNonInclusiveTerm: # optional, default is false
