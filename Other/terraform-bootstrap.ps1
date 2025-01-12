@@ -1,21 +1,54 @@
-# terraform-bootstrap.ps1
+<#
+    .SYNOPSIS
+    Bootstraps Terraform environment and runs specified Terraform commands.
+
+    .DESCRIPTION
+    This script ensures Terraform is installed, sets up the Terraform workspace, and runs specified Terraform commands.
+    It supports downloading the latest version of Terraform, creating necessary directories, and copying configuration files.
+    The script is intended to be used to bootstrap Terraform environments for testing and development purposes and once-off deployments of any code in the Config directory.
+
+    .NOTES
+    Version:        1.0
+    Author:         luke.geek.nz
+    Creation Date:  10/01/25
+    Purpose/Change: 
+    14/05/17 - Initial script creation
+
+    .PARAMETER terraformPath
+    The path where Terraform will be installed.
+
+    .PARAMETER terraformVersion
+    The version of Terraform to install. Defaults to "latest".
+
+    .PARAMETER configPath
+    The path to the directory containing Terraform configuration files.
+
+    .PARAMETER outputPath
+    The path to the directory where Terraform will be executed.
+
+    .PARAMETER autoApprove
+    Automatically approve Terraform apply and destroy actions.
+
+    .EXAMPLE
+    ./terraform-bootstrap.ps1 -terraformPath ".\terraform" -terraformVersion "latest" -configPath ".\config" -outputPath ".\output" -autoApprove
+#>
 
 [CmdletBinding()]
 param (
     [Parameter(Mandatory = $false)]
-    [string]$TerraformPath = ".\terraform",
+    [string]$terraformPath = ".\terraform",
     
     [Parameter(Mandatory = $false)]
-    [string]$TerraformVersion = "latest",
+    [string]$terraformVersion = "latest",
     
     [Parameter(Mandatory = $false)]
-    [string]$ConfigPath = ".\config",
+    [string]$configPath = ".\config",
     
     [Parameter(Mandatory = $false)]
-    [string]$OutputPath = ".\output",
+    [string]$outputPath = ".\output",
     
     [Parameter(Mandatory = $false)]
-    [switch]$AutoApprove
+    [switch]$autoApprove
 )
 
 # Function to ensure Terraform is installed
@@ -108,33 +141,35 @@ function Invoke-Terraform {
 # Main script
 try {
     # Create required directories
-    if (!(Test-Path $ConfigPath)) {
-        New-Item -ItemType Directory -Path $ConfigPath -Force | Out-Null
+    if (!(Test-Path $configPath)) {
+        New-Item -ItemType Directory -Path $configPath -Force | Out-Null
+        Write-Host "Config directory created at $configPath. Please place Terraform files into this directory and press any key to continue..." -ForegroundColor Yellow
+        Read-Host
     }
-    if (!(Test-Path $OutputPath)) {
-        New-Item -ItemType Directory -Path $OutputPath -Force | Out-Null
+    if (!(Test-Path $outputPath)) {
+        New-Item -ItemType Directory -Path $outputPath -Force | Out-Null
     }
 
     # Install Terraform
     Write-Host "Ensuring Terraform is installed..." -ForegroundColor Green
-    Install-Terraform -version $TerraformVersion -path $TerraformPath
+    Install-Terraform -version $terraformVersion -path $terraformPath
 
     # Copy Terraform files from config to output directory
     Write-Host "Setting up Terraform workspace..." -ForegroundColor Green
     
     # Convert to absolute paths
-    $ConfigPathFull = Resolve-Path $ConfigPath -ErrorAction Stop
-    $OutputPathFull = Resolve-Path $OutputPath -ErrorAction Stop
+    $configPathFull = Resolve-Path $configPath -ErrorAction Stop
+    $outputPathFull = Resolve-Path $outputPath -ErrorAction Stop
     
-    Write-Verbose "Config Path: $ConfigPathFull"
-    Write-Verbose "Output Path: $OutputPathFull"
+    Write-Verbose "Config Path: $configPathFull"
+    Write-Verbose "Output Path: $outputPathFull"
     
-    $ConfigFiles = Get-ChildItem -Path $ConfigPathFull -Filter "*.tf" -ErrorAction Stop
-    $VarFiles = Get-ChildItem -Path $ConfigPathFull -Filter "*.tfvars" -ErrorAction Stop
+    $configFiles = Get-ChildItem -Path $configPathFull -Recurse -File -Filter "*.tf" -ErrorAction Stop
+    $varFiles = Get-ChildItem -Path $configPathFull -Recurse -File -Filter "*.tfvars" -ErrorAction Stop
     
-    Write-Verbose "Found $($ConfigFiles.Count) .tf files"
+    Write-Verbose "Found $($configFiles.Count) .tf files"
     
-    foreach ($file in $ConfigFiles) {
+    foreach ($file in $configFiles) {
         Write-Verbose "Processing file: $($file.FullName)"
         
         # Verify source file
@@ -150,25 +185,26 @@ try {
             continue
         }
         
-        Write-Verbose "Copying $($file.Name) to $OutputPathFull"
-        Copy-Item -Path $file.FullName -Destination $OutputPathFull -Force
+        Write-Host "Copying $($file.Name) to $outputPathFull" -ForegroundColor Green
+        Copy-Item -Path $file.FullName -Destination $outputPathFull -Force
         
         # Verify copy succeeded
-        $destFile = Join-Path $OutputPathFull $file.Name
+        $destFile = Join-Path $outputPathFull $file.Name
         if (!(Test-Path $destFile)) {
             Write-Error "Failed to copy file to: $destFile"
         }
     }
     
-    foreach ($file in $VarFiles) {
+    foreach ($file in $varFiles) {
         Write-Verbose "Processing var file: $($file.FullName)"
-        Copy-Item -Path $file.FullName -Destination $OutputPathFull -Force
+        Write-Host "Copying $($file.Name) to $outputPathFull" -ForegroundColor Green
+        Copy-Item -Path $file.FullName -Destination $outputPathFull -Force
     }
 
     
     # Run Terraform
     Write-Host "Running Terraform..." -ForegroundColor Green
-    Invoke-Terraform -workingDirectory $OutputPath -command "apply" -autoApprove:$AutoApprove
+    Invoke-Terraform -workingDirectory $outputPath -command "apply" -autoApprove:$autoApprove
 
 }
 catch {
