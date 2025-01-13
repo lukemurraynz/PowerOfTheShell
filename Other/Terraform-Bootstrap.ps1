@@ -6,13 +6,14 @@
     This script ensures Terraform is installed, sets up the Terraform workspace, and runs specified Terraform commands.
     It supports downloading the latest version of Terraform, creating necessary directories, and copying configuration files.
     The script is intended to be used to bootstrap Terraform environments for testing and development purposes and once-off deployments of any code in the Config directory.
+    https://luke.geek.nz/azure/powershell-terraform-bootstrap/
 
     .NOTES
     Version:        1.0
     Author:         luke.geek.nz
     Creation Date:  10/01/25
     Purpose/Change: 
-    14/05/17 - Initial script creation
+    09/01/25 - Initial script creation
 
     .PARAMETER terraformPath
     The path where Terraform will be installed.
