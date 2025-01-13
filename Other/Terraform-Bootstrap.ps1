@@ -30,7 +30,7 @@
     Automatically approve Terraform apply and destroy actions.
 
     .EXAMPLE
-    ./terraform-bootstrap.ps1 -terraformPath ".\terraform" -terraformVersion "latest" -configPath ".\config" -outputPath ".\output" -autoApprove
+    .\Terraform-Bootstrap.ps1 -terraformPath ".\terraform" -terraformVersion "latest" -configPath ".\config" -outputPath ".\output"
 #>
 
 [CmdletBinding()]
